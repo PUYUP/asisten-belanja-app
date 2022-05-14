@@ -1,0 +1,7 @@
+{
+  "name": "asisten-belanja-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
