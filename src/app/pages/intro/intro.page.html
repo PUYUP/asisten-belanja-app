@@ -1,0 +1,40 @@
+<ion-content>
+  <div class="d-flex flex-column w-100 h-100 py-5">
+    <div class="text-center mb-2 mt-4">
+      <ion-img src="assets/icon/asisten-belanja-small.png" class="mx-auto" [ngStyle]="{'width': '125px', 'height': 'auto'}"></ion-img>
+    </div>
+
+    <div class="px-4 text-center">
+      <h1 class="fs-1 mt-0 mb-0 text-center">
+        <div class="heading lh-1">Asisten</div>
+        <div class="subheading lh-1">
+          <ion-text color="ocean">Belanja</ion-text>
+        </div>
+      </h1>
+      <h6 class="border-top pt-3 pb-0 border-dotted mt-3 fw-semibold">Belanja Banyak Beda Tempat Bisa!</h6>
+      <p class="mt-0 lh-base">Infokan saja kebutuhannya <ion-text class="fst-italic">personal shopper</ion-text> yang pergi belanja</p>
+    </div>
+
+    <div class="mt-auto px-5 text-center">
+      <p class="d-flex align-items-center justify-content-center">
+        <ion-icon name="bicycle-outline" slot="start" class="fs-5 text-secondary"></ion-icon>
+        __
+        <ion-text class="ps-1 text-secondary mb-2" [ngStyle]="{'font-size': '14px'}">Yuk! Dibelanjain</ion-text>
+      </p>
+
+      <ion-button (click)="onSignup()" mode="ios" color="warning" class="shadow rounded-pill">
+        <ion-text>Infokan Kebutuhan</ion-text>
+        <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+
+      <div class="mt-2">
+        <ion-button fill="clear" mode="ios" (click)="onWhy()" color="ocean">
+          <p class="lh-base" [ngStyle]="{'font-size': '13px'}">
+            Kenapa Asisten Belanja? <br />
+            Pelajari disini
+          </p>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

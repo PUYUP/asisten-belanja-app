@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="ocean">
+    <ion-title>
+      Petunjuk & Bantuan
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="p-4">
+    <p class="lh-base mt-0 pt-0">Jika masih bingung bagaimana menggunakan Asisten Belanja boleh chat ke WhatsApp 085266769909</p>
+    <div class="text-center border-top pt-3">
+      <ion-button color="success" href="whatsapp://send?phone=6285266769909">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <ion-text class="ms-1">Chat Admin</ion-text>
+      </ion-button>
+    </div>
+  </div>
+
+  <ng-container *ngIf="posts$ | async as posts">
+    <ion-accordion-group>
+      <ng-container *ngFor="let post of posts">
+        <ion-accordion [value]="post.id">
+          <ion-item slot="header" lines="full">
+            <ion-label>{{ post.title.rendered }}</ion-label>
+          </ion-item>
+      
+          <ion-list slot="content" class="bg-light">
+            <article [innerHTML]="post.content.rendered" class="px-4 lh-base"></article>
+          </ion-list>
+        </ion-accordion>
+      </ng-container>
+    </ion-accordion-group>
+  </ng-container>
+</ion-content>

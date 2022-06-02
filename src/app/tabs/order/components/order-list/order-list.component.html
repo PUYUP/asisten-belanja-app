@@ -1,0 +1,33 @@
+<ion-item [lines]="last ? 'none' : 'full'" detail="true" button="true" [routerLink]="['/tabs/order', order.id]">
+  <ion-label>
+    <b>#{{ order?.title?.rendered }}</b>
+    <p class="d-flex align-items-center">
+      <ion-text color="dark">{{ order.meta._order_items.length }} item</ion-text> 
+      <span class="mx-2" [ngStyle]="{'color': '#aaaaaa'}">&bull;</span>
+      
+      <ion-text *ngIf="order.meta._order_status === 'created'" slot="end" class="fw-normal text-lowercase text-muted" [ngStyle]="{'font-size': '13px'}">
+        Menunggu Konfirmasi
+      </ion-text>
+
+      <ion-text *ngIf="order.meta._order_status === 'confirmed'" slot="end" class="fw-normal text-lowercase text-success" [ngStyle]="{'font-size': '13px'}">
+        Terkonfirmasi
+      </ion-text>
+    
+      <ion-text *ngIf="order.meta._order_status === 'shopping'" slot="end" class="fw-normal text-lowercase text-success" [ngStyle]="{'font-size': '13px'}">
+        Asisten Berbelanja
+      </ion-text>
+    
+      <ion-text *ngIf="order.meta._order_status === 'delivery'" slot="end" class="fw-normal text-lowercase text-success" [ngStyle]="{'font-size': '13px'}">
+        Dalam Pengantaran
+      </ion-text>
+
+      <ion-text *ngIf="order.meta._order_status === 'delivered'" slot="end" class="fw-normal text-lowercase text-success" [ngStyle]="{'font-size': '13px'}">
+        Sampai
+      </ion-text>
+    
+      <ion-text *ngIf="order.meta._order_status === 'closed'" slot="end" class="fw-normal text-lowercase text-success" [ngStyle]="{'font-size': '13px'}">
+        Selesai
+      </ion-text>
+    </p>
+  </ion-label>
+</ion-item>

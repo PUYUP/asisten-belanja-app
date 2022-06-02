@@ -1,0 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="ocean">
+    <ion-title>
+      Pesanan
+    </ion-title>
+
+    <ion-buttons slot="end" class="ion-margin-end">
+      <ion-button (click)="onRefresh()">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="order$ | async as order">
+    <ion-list lines="full">
+      <ng-container *ngFor="let item of order?.data?.results; let last = last">
+        <app-order-list [order]="item" [last]="last"></app-order-list>
+      </ng-container>
+
+      <ng-container *ngIf="order?.data?.results?.length == 0">
+        <div class="text-center p-4">
+          Ada belum membuat pesanan
+        </div>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+</ion-content>

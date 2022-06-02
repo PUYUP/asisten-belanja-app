@@ -31,7 +31,12 @@
                 "output": "./svg"
               }
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap-utilities.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap-grid.min.css",
+              "src/theme/variables.scss", 
+              "src/global.scss"
+            ],
             "scripts": [],
             "aot": false,
             "vendorChunk": true,

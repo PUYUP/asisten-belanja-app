@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="ocean">
+    <ion-title>
+      Kebutuhan Saya
+    </ion-title>
+
+    <ng-container *ngIf="cart$ | async as cart">
+      <ion-buttons slot="end" class="ion-margin-end">
+        <ion-button (click)="onAddItem( cart )" size="small">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          <ion-text>Tambah</ion-text>
+        </ion-button>
+      </ion-buttons>
+    </ng-container>
+  </ion-toolbar>
+</ion-header>
+
+<ng-container *ngIf="cart$ | async as cart">
+  <ion-content [fullscreen]="true" class="ion-padding-bottom">
+    <ion-list lines="full" class="pt-0">
+      <ion-item (click)="onOpenCalendar(cart)" color="light" button detail>
+        <ion-label>
+          <p><ion-text class="text-secondary">Kapan belanja</ion-text></p>
+          
+          <ng-container *ngIf="cart?.meta?._cart_delivery == 'instant'">
+            <ion-text class="mt-1 fw-bold">
+              Instan 1 - 2 jam 
+            </ion-text>
+          
+            <p class="mt-1 text-success">Maksimal 10 item</p>
+          </ng-container>
+
+          <ng-container *ngIf="cart?.meta?._cart_delivery == 'later'">
+            <ion-text class="mt-1 fw-bold">
+              {{ cart?.meta?._cart_delivery_date | date }}
+            </ion-text>
+
+            <p class="mt-1 text-success">Maksimal 30 item</p>
+          </ng-container>
+
+          <ion-text *ngIf="!cart?.meta?._cart_delivery_date" color="danger" class="mt-1">Belum diset</ion-text>
+        </ion-label>
+      </ion-item>
+
+      <ng-container *ngIf="retrieveUser$ | async as user">
+        <ion-item (click)="onOpenAddress(cart, user?.data?.detail?.meta?._delivery_address)" color="light" button detail>
+          <ion-label>
+            <p><ion-text class="text-secondary">Alamat pengantaran / catatan lain</ion-text></p>
+            <ion-text *ngIf="cart?.meta?._cart_delivery_address" class="mt-1">{{ cart?.meta?._cart_delivery_address }}</ion-text>
+            <ion-text *ngIf="!cart?.meta?._cart_delivery_address" color="danger" class="mt-1">Belum diset</ion-text>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngFor="let item of cart?.meta?._cart_items; let index = index">
+        <app-cart-item [item]="item" [index]="index" [cart]="cart"></app-cart-item>
+      </ng-container>
+    </ion-list>
+
+    <div class="text-center pt-2">
+      <ion-button (click)="onAddItem( cart )" fill="clear">
+        <ion-icon name="add-outline" slot="start"></ion-icon>
+        <ion-text>{{ cart?.meta?._cart_items?.length > 0 ? 'Tambah Lagi' : 'Tambah Item' }}</ion-text>
+      </ion-button>
+    </div>
+  </ion-content>
+
+  <ion-footer *ngIf="cart?.meta?._cart_items?.length > 0">
+    <ion-item-divider lines="none" color="warning">
+      <ion-label>{{ cart?.meta?._cart_items?.length }} item</ion-label>
+      <ion-buttons slot="end">
+        <ion-button (click)="onCreateOrder(cart)" [disabled]="!cart?.meta?._cart_delivery_address || !cart?.meta?._cart_delivery_date">
+          <ion-text>Buat Pesanan</ion-text>
+          <ion-icon name="arrow-forward-outline" slot="end"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item-divider>
+  </ion-footer>
+</ng-container>

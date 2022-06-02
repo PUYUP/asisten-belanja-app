@@ -1,0 +1,120 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button [routerLink]="['/tabs/order']" routerDirection="back">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      Rincian Pesanan
+    </ion-title>
+
+    <ion-buttons slot="end" class="ion-margin-end">
+      <ion-button (click)="onRefresh()">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="order$ | async as order">
+    <ion-list lines="full" class="pb-0 pt-1">
+      <ion-item>
+        <ion-label>Nomor Pesanan</ion-label>
+        <ion-note slot="end" class="fs-6 mt-0">#{{ order?.title?.rendered }}</ion-note>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label class="ion-text-wrap">
+          <p class="mb-0">Waktu belanja</p>
+          <span *ngIf="order?.meta?._order_delivery == 'instant'" class="text-success fw-bold">Instan 1 - 2 jam</span>
+          <span *ngIf="order?.meta?._order_delivery == 'later'" class="text-success fw-bold">{{ order?.meta?._order_delivery_date | date }}</span>
+          
+          <div class="d-flex mt-1">
+            <div><ion-icon name="location-outline" slot="icon-only" size="medium"></ion-icon></div>
+            <p class="mb-0 ps-2" [innerHTML]="order?.meta?._order_delivery_address"></p>
+          </div>
+        </ion-label>
+      </ion-item>
+
+      <ion-accordion-group [value]="order?.meta?._order_status == 'created' || order?.meta?._order_status == 'delivered' ? 'created' : ''">
+        <ion-accordion value="created">
+          <ion-item slot="header">
+            <ion-label>
+              <p>Status pesanan</p>
+              <ion-text class="fw-bold text-success">{{ currentStatus?.label }}</ion-text>
+            </ion-label>
+          </ion-item>
+      
+          <ion-list slot="content" class="pb-0">
+            <ion-item>
+              <ion-label class="ion-text-wrap pt-0 mt-0">
+                <p class="mb-0" [innerHTML]="currentStatus?.action"></p>
+                <p *ngIf="order?.meta?._order_status == 'created'" class="pt-1">
+                  <ion-button color="success" href="whatsapp://send?phone=6285266769909&amp;text=Konfirmasi%20Pesanan%20Asisten%20Belanja%20Nomor%20{{ order?.title?.rendered }}">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                    <ion-text class="ms-1">Konfirmasi</ion-text>
+                  </ion-button>
+                </p>
+
+                <p *ngIf="order?.meta?._order_status == 'shopping'" class="pt-1">
+                  <ion-button color="success" href="whatsapp://send?phone={{ order?.meta?._order_shopper_detail?.whatsapp }}&amp;text=Saya%20Pemesan%20Asisten%20Belanja%20Nomor%20{{ order?.title?.rendered }}">
+                    <ion-icon name="logo-whatsapp"></ion-icon>
+                    <ion-text class="ms-1">Chat Asisten</ion-text>
+                  </ion-button>
+                </p>
+
+                <p *ngIf="order?.meta?._order_status == 'delivered'" class="pt-1">
+                  <ion-button slot="end" color="warning" (click)="onMarkClose()">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                    <ion-text class="ms-1">Selesai</ion-text>
+                  </ion-button>
+                </p>
+              </ion-label>
+            </ion-item>
+
+            <ng-container *ngFor="let status of orderStatus">
+              <ion-item class="ion-status">
+                <ion-icon *ngIf="status?.passed" size="small" name="checkmark-circle" color="success" slot="start" class="me-3"></ion-icon>
+                <ion-icon *ngIf="!status?.passed" size="small" name="ellipse" color="medium" slot="start" class="me-3"></ion-icon>
+                <ion-label [ngStyle]="{'font-size': '14px'}" class="mt-0 mb-0">{{ status.label }}</ion-label>
+              </ion-item>
+            </ng-container>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <ion-item-divider color="light" class="border-top">
+        <ion-label class="text-dark">Item yang dibeli</ion-label>
+      </ion-item-divider>
+
+      <ng-container *ngFor="let item of order?.meta?._order_items; let index = index; let last = last">
+        <app-order-item [item]="item" [index]="index" [last]="last"></app-order-item>
+      </ng-container>
+
+      <ion-item color="light">
+        <ion-label>Jasa Belanja</ion-label>
+        <ion-note slot="end" class="fs-6 pt-3">Rp{{ order?.meta?._order_shopper_fee | number }}</ion-note>
+      </ion-item>
+      
+      <ng-container *ngIf="order?.meta?._order_status == 'shopping' || order?.meta?._order_status == 'delivery' || order?.meta?._order_status == 'closed'">
+        <ion-item color="light">
+          <ion-label>
+            Subtotal
+            <p *ngIf="(order?.meta?._order_status == 'shopping' || order?.meta?._order_status == 'delivery') && order?.meta?._order_status != 'closed'" class="text-danger">
+              Sedang diinput asisten
+            </p>
+          </ion-label>
+          <ion-note slot="end" class="fs-6 pt-3">Rp{{ order.subtotal | number }}</ion-note>
+        </ion-item>
+
+        <ion-item lines="none" color="success">
+          <ion-label>Total Bayar (COD)</ion-label>
+          <ion-note slot="end" class="fs-6 pt-3 text-white">Rp{{ order.total | number }}</ion-note>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+</ion-content>

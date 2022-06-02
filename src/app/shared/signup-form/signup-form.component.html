@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Lengkapi Akun</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="d-flex w-100 h-100 flex-column">
+    <ng-container *ngIf="user$ | async as user">
+      <form class="ion-margin" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+        <ion-item class="mb-3 ion-no-padding">
+          <ion-label position="stacked">Nomor WhatsApp</ion-label>
+          <ion-input type="tel" placeholder="0811805944" formControlName="username"></ion-input>
+        </ion-item>
+
+        <ion-item class="mb-4 ion-no-padding">
+          <ion-label position="stacked">Nama Sesuai KTP</ion-label>
+          <ion-input placeholder="Muhammad Rahman" formControlName="name"></ion-input>
+        </ion-item>
+
+        <div>
+          <ion-text [ngStyle]="{'font-size': '13px'}">Tanggal Lahir Sesuai KTP</ion-text>
+        </div>
+
+        <div class="row gx-2">
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Tanggal</ion-label>
+              <ion-select interface="popover" formControlName="day">
+                <ng-container *ngFor="let day of days">
+                  <ion-select-option [value]="day">{{ day }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Bulan</ion-label>
+              <ion-select interface="popover" formControlName="month">
+                <ng-container *ngFor="let month of months">
+                  <ion-select-option class="ion-text-wrap" [value]="month?.number">{{ month?.name }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Tahun</ion-label>
+              <ion-select interface="popover" formControlName="year">
+                <ng-container *ngFor="let year of years">
+                  <ion-select-option [value]="year">{{ year }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="text-center pt-4">
+          <ion-button type="submit" color="warning" [disabled]="formGroup.invalid || user?.status == 'loading'">
+            {{ user?.status == 'loading' ? 'Loading...' : 'Kirim' }}
+          </ion-button>
+        </div>
+      </form>
+    </ng-container>
+
+    <div class="mt-auto ion-padding text-center">
+      <div>Sudah pernah belanja?</div>
+      <ion-button fill="clear" (click)="onSignin()">Masuk ke Akun</ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "827494542422",
+    "project_id": "asistenbelanjadotcom",
+    "storage_bucket": "asistenbelanjadotcom.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:827494542422:android:2defc2755c0fa001759ff7",
+        "android_client_info": {
+          "package_name": "com.asistenbelanja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "827494542422-881c4rujq2qegkf1cnnbjpa8lvau4p1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtO6GGLS9y_Xjjx8PH2ABm9kAzI-fdRTw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "827494542422-881c4rujq2qegkf1cnnbjpa8lvau4p1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

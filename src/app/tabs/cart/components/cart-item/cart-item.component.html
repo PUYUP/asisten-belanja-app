@@ -1,0 +1,17 @@
+<ion-item>
+  <ion-note class="fs-6 me-2" slot="start" [ngStyle]="{'width': '30px'}">{{ index + 1 }}</ion-note>
+  <ion-label class="ion-text-wrap">
+    {{ item.name }}
+    <p class="mt-0 mb-0 text-success">{{ item.quantity }}</p>
+    <p *ngIf="item.note">{{ item.note }}</p>
+  </ion-label>
+  <ion-buttons slot="end">
+    <ion-button color="danger" (click)="onDelete(item, index)">
+      <ion-icon slot="icon-only" name="trash-outline" size="small"></ion-icon>
+    </ion-button>
+
+    <ion-button color="primary" (click)="onEdit(item, index)">
+      <ion-icon slot="icon-only" name="create-outline" size="small"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-item>

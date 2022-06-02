@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      Alamat / Catatan
+    </ion-title>
+
+    <ion-buttons slot="end" class="ion-margin-end">
+      <ion-button (click)="onSave()" [disabled]="formGroup.invalid">
+        <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="ion-margin" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" #myForm="ngForm">
+    <ion-item lines="full" class="ion-no-padding mb-3">
+      <ion-label position="stacked">Alamat Pengantaran Sesuai KTP *</ion-label>
+      <ion-textarea rows="3" formControlName="address" placeholder="Kemana pesanan ini diantar?"></ion-textarea>
+    </ion-item>
+
+    <ion-item lines="full" class="ion-no-padding">
+      <ion-label position="stacked">Catatan Lain</ion-label>
+      <ion-textarea rows="3" formControlName="note" placeholder="Misal lokasi belanja, dll"></ion-textarea>
+    </ion-item>
+
+    <div class="text-center pt-3">
+      <ion-button type="submit" color="warning" [disabled]="formGroup.invalid">
+        Simpan
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

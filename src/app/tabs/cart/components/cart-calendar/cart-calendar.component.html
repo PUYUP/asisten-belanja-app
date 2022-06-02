@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>
+      Kapan Belanja
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-top">
+  <ion-radio-group [value]="delivery" (ionChange)="onDeliveryChange($event)">
+    <ion-item>
+      <ion-radio slot="start" value="instant"></ion-radio>
+      <ion-label>
+        Instan
+        <p>1 - 2 jam</p>
+      </ion-label>
+      <p>Rp30.000</p>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-radio slot="start" value="later"></ion-radio>
+      <ion-label>
+        Santai
+        <p>Atur tanggalnya</p>
+      </ion-label>
+      <p>Rp20.000</p>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-accordion-group [value]="delivery">
+    <ion-accordion value="later">
+      <ion-datetime class="border-top" slot="content" [min]="today" [value]="selectedDate" locale="id-ID" size="cover" presentation="date" (ionChange)="onSelectedDate($event)"></ion-datetime>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

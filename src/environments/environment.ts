@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // apiEndpoint: 'http://localhost/www/wp/asisten-belanja/wp-json/',
+  apiEndpoint: 'http://192.168.1.115/www/wp/asisten-belanja/wp-json/',
 };
 
 /*

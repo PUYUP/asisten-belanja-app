@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Akses Akun</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="d-flex w-100 h-100 flex-column">
+    <ng-container *ngIf="user$ | async as user">
+      <form class="ion-margin" [formGroup]="formGroup" (ngSubmit)="onFormSubmit()">
+        <ion-item class="mb-3 ion-no-padding">
+          <ion-label position="stacked">Nomor WhatsApp</ion-label>
+          <ion-input type="tel" placeholder="0811805944" formControlName="username"></ion-input>
+        </ion-item>
+
+        <div>
+          <ion-text [ngStyle]="{'font-size': '13px'}">Tanggal Lahir Sesuai KTP</ion-text>
+        </div>
+
+        <div class="row gx-2">
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Tanggal</ion-label>
+              <ion-select interface="popover" formControlName="day">
+                <ng-container *ngFor="let day of days">
+                  <ion-select-option [value]="day">{{ day }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Bulan</ion-label>
+              <ion-select interface="popover" formControlName="month">
+                <ng-container *ngFor="let month of months">
+                  <ion-select-option [value]="month?.number">{{ month?.name }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+
+          <div class="col-4">
+            <ion-item lines="full" class="ion-no-padding">
+              <ion-label position="floating" color="medium">Tahun</ion-label>
+              <ion-select interface="popover" formControlName="year">
+                <ng-container *ngFor="let year of years">
+                  <ion-select-option [value]="year">{{ year }}</ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="text-center pt-4">
+          <ion-button type="submit" color="warning" [disabled]="formGroup.invalid || user?.status == 'loading'">
+           {{ user?.status == 'loading' ? 'Loading...' : 'Masuk' }}
+          </ion-button>
+        </div>
+      </form>
+    </ng-container>
+
+    <div class="mt-auto border-to text-center py-3">
+      <p class="text-muted mb-2" [ngStyle]="{'font-size': '14px'}">Butuh bantuan?</p>
+      <ion-button fill="clear" href="whatsapp://send?phone=6285266769909">
+        <ion-icon name="logo-whatsapp"></ion-icon>
+        <ion-text class="ms-1">Chat Admin<br />085266769909</ion-text>
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

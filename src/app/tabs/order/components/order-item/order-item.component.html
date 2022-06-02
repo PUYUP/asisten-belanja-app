@@ -1,0 +1,12 @@
+<ion-item>
+  <ion-note class="fs-6 me-2" slot="start" [ngStyle]="{'width': '30px'}">{{ index + 1 }}</ion-note>
+  <ion-label class="ion-text-wrap">
+    <ion-text [ngStyle]="{'font-size': '16px'}">{{ item.name }}</ion-text> 
+    <p class="mt-0 mb-0 text-success">{{ item.quantity }}</p>
+    <p *ngIf="item.note">{{ item.note }}</p>
+  </ion-label>
+
+  <ion-note slot="end">
+    <div *ngIf="item.subtotal > 0" class="text-danger fs-6">Rp{{ item.subtotal | number }}</div>
+  </ion-note>
+</ion-item>

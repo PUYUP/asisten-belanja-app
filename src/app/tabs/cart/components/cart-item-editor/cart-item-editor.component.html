@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="ocean">
+    <ion-buttons slot="start">
+      <ion-button (click)="onDismiss()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>{{ item ? 'Rubah Item' : 'Tambah Item' }}</ion-title>
+
+    <ion-buttons slot="end" class="ion-margin-end">
+      <ion-button (click)="onSave()" [disabled]="formGroup.invalid || disableSubmit">
+        <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+        <ion-text>Simpan</ion-text>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup" (ngSubmit)="onFormSubmit()" class="ion-margin" #myForm="ngForm">
+    <ion-item lines="full" class="ion-no-padding mb-3">
+      <ion-label position="stacked">Nama Kebutuhan/Barang *</ion-label>
+      <ion-input formControlName="name" placeholder="Misal: Beras belido 20kg"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full" class="ion-no-padding mb-3">
+      <ion-label position="stacked">Banyaknya *</ion-label>
+      <ion-input formControlName="quantity" placeholder="Misal: 1 karung"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full" class="ion-no-padding mb-3">
+      <ion-label position="stacked">Catatan Tambahan</ion-label>
+      <ion-textarea formControlName="note" placeholder="Pilihan warna, tempat belinya, dll"></ion-textarea>
+    </ion-item>
+
+    <div class="text-center pt-2">
+      <ion-button type="submit" color="warning" [disabled]="formGroup.invalid || disableSubmit">
+        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+        <ion-text>Simpan</ion-text>
+      </ion-button>
+    </div>
+  </form>
+</ion-content>
